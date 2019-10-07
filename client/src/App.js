@@ -14,7 +14,7 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing(1) * 3,
+    marginTop: theme.spacing(3),
     overflowX: "auto"
   },
   table: {
@@ -51,7 +51,7 @@ const customers = [
 
 class App extends Component {
   render() {
-    const { classes } = this.props?this.props:null;
+    const { classes } = this.props;
     return (
       <Paper className={classes.root}>
         <Table className={classes.table}>
