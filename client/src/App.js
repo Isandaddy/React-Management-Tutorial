@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import CustomerAdd from './components/CustomerAdd';
 import './App.css';
 import Customer from './components/Customer';
 import Paper from '@material-ui/core/Paper';
@@ -39,10 +39,23 @@ props, state => shouldComponentUpdate()
 
 class App extends Component {
 
-  state = {
-    customers: "",
-    completed: 0
+  constructor(props) {
+    super(props);
+    this.state = {
+      customers: '',
+      completed: 0
     }
+  }
+
+  stateRefresh = () => {
+    this.setState({
+      customers: '',
+      completed: 0
+    });
+    this.callApi()
+    .then(res => this.setState({customers: res}))
+    .catch(err => console.log(err));
+  }
 
   componentDidMount() {
     this.timer = setInterval(this.progress, 20);
@@ -65,7 +78,8 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.root}>
+      <div>
+        <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -89,7 +103,10 @@ class App extends Component {
           }
           </TableBody>
         </Table>
-      </Paper>     
+      </Paper>  
+      <CustomerAdd stateRefresh={this.stateRefresh}/>
+      </div>
+         
     );
   }
 }
